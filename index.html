@@ -41,6 +41,7 @@
 
     var i=0;
     var t;
+    var y,tt,rr;
     var arr=[];
    function shuffle(ar){
    for(let i=ar.length-1;i>0;i--){
@@ -82,33 +83,39 @@
       $("#img").html('<img src="'+img+'"/>');
        arr = shuffle(arry);
        clearInterval(t);
+       clearInterval(rr);
+       clearTimeout(tt);
+       clearTimeout(y);
        choose();
     });
     function choose(){
+      $("#btn").attr("disabled","");
       t = setInterval(function(){
       if(i==arr.length-1){
         clearInterval(t);
         var imgg = arr[i]+".png";
         $("#img").html(('<img src="'+imgg+'"/>'));
         $("#country").html("");
-        var tt;
         clearTimeout(tt);
         var k=1;
         $("#country").html("0 (5)");
-        setInterval(function (){
+        rr = setInterval(function (){
           if(k==5)
-          clearInterval(this);
+          clearInterval(rr);
           else{
           $("#country").html(k+" (5)");
           k++;
           }
         },1000);
         tt=setTimeout(function (){
+          
          $("#country").html(country[arr[i]]);
          i=0;
-         setTimeout(function(){
+         clearTimeout(y);
+         y = setTimeout(function(){
            $("#btn").click();
          },5000);
+         $("#btn").removeAttr("disabled");
         },5000);
       }
      else{
@@ -119,7 +126,7 @@
     }
     },120);
   }
-  
+
   });
     </script>
   </head>
